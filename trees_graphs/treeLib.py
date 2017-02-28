@@ -87,4 +87,7 @@ class BinaryTree:
            value=random.randint(1,50)
            self.add(value)
 
+   def createBinaryTree2(self,list1):
+       for i in list1:
+           self.add(i)
  
