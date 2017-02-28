@@ -15,32 +15,16 @@ class BinaryNode:
    def __str__(self):
        return str(self.id)
 
-def checkBST(tree):
+def checkBST(tree,min=None,max=None):
 
-   if tree.left:
-       if tree.id >= tree.left.id:
-           leftAction,maxId,minId=checkBST(tree.left)
-       else:
-           return False
-   else:
+   if not tree:
        return True
 
-   if tree.right:
-       if tree.id < tree.right.id:
-           rightAction,maxId,minId=checkBST(tree.right)
-       else:
-           return False
-   else:
-       return True
- 
-   return leftAction and rightAction 
-   
+   if (min and tree.id < min) or (max and tree.id > max):
+       return False
 
-def checkBSTFunc(tree):
-   if checkBST(tree):
-       print "BST"
-   else:
-       print "Not BST"
+   return checkBST(tree.left,min,tree.id) and checkBST(tree.right,tree.id,max)
+
 
 def checkBSTWithInorder(tree):
    global lastVal
@@ -56,57 +40,28 @@ def checkBSTWithInorder(tree):
    else:
        return True
 
-def printList(myList):
-   for i in myList:
-       for j in i :
-           sys.stdout.write(str(j.id) + " ")
-       print ""
-   print ""   
+
+def checkBSTFunc(tree,mystr):
+   print("Check BST "+mystr)
+   if checkBST(tree):
+       print("\tBST")
+   else:
+       print("\tNot BST")
 
 
-def printA(list1):
-   for i in list1:
-       sys.stdout.write(str(i.id) + " ")
-   print ""
+def checkBSTWithInorderFunc(tree,mystr):
+   print("Check BST With Inorder "+mystr)
+   if checkBSTWithInorder(tree):
+       print("\tBST")
+   else:
+       print("\tNot BST")
+
+
 if __name__ == '__main__':
 
    bt=treeLib.BinaryTree()
    bt.createBinaryTree(10)   
-   
-   print "inorder traversal"
-   print bt.inOrder(bt.node)
 
-   print "preorder traversal"
-   bt.preOrder(bt.node)
-
- 
-   bt2=treeLib.BinaryTree()
-   bt2.createBinaryTree2([10,8,6,7,9,4,3,18,15,20])
-   print "inorder traversal"
-   print bt2.inOrder(bt2.node)
-
-   print "preorder traversal"
-   bt2.preOrder(bt2.node)
-
-
-   bt3=treeLib.BinaryTree()
-   bt3.createBinaryTree2([20,10,5,3,15,30,25,40])
-   print "inorder traversal"
-   print bt3.inOrder(bt3.node)
-
-   print "preorder traversal"
-   bt3.preOrder(bt3.node)
-
-
-   bt4=treeLib.BinaryTree()
-   bt4.createBinaryTree2([20,10,5])
-   print "inorder traversal"
-   print bt4.inOrder(bt4.node)
-
-   print "preorder traversal"
-   bt4.preOrder(bt4.node)
-
-   print ""
    node=treeLib.BinaryNode(20)
    node.left=treeLib.BinaryNode(10)
    node.right=treeLib.BinaryNode(30)
@@ -116,15 +71,26 @@ if __name__ == '__main__':
    node.right.right=treeLib.BinaryNode(40)
    node.right.left=treeLib.BinaryNode(26)
 
-   #checkBSTFunc(bt.node)
-   #checkBSTFunc(bt2.node)
-   #checkBSTFunc(bt3.node)
-   #checkBSTFunc(bt4.node)
-   #checkBSTFunc(node)
+   node2 = treeLib.BinaryNode(10)
+   node2.left = treeLib.BinaryNode(5)
+   node2.right = treeLib.BinaryNode(15)
+   node2.left.left = treeLib.BinaryNode(4)
+   node2.left.right = treeLib.BinaryNode(6)
+
+   node3 = treeLib.BinaryNode(6)
+   node3.left = treeLib.BinaryNode(5)
+   node3.right = treeLib.BinaryNode(7)
+   node3.left.left = treeLib.BinaryNode(4)
+   node3.left.left.left = treeLib.BinaryNode(3)
+   node3.left.left.left.right = treeLib.BinaryNode(9)
 
 
+   checkBSTFunc(node,"node1")
    lastVal=None
-   if checkBSTWithInorder(node):
-      print "BST"
-   else:
-      print "Not BST"
+   checkBSTWithInorderFunc(node,"node1")
+   checkBSTFunc(node2,"node2")
+   lastVal=None
+   checkBSTWithInorderFunc(node2,"node2")
+   checkBSTFunc(node3,"node3")
+   lastVal=None
+   checkBSTWithInorderFunc(node3,"node3")
