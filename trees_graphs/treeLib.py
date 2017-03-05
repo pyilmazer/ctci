@@ -20,6 +20,15 @@ class BinaryNode:
        return str(self.id)
 
 
+class BinaryNodeWithParentLink(BinaryNode):
+   def __init__(self,id,visited=False,left=None,right=None,parent=None):
+       BinaryNode.__init__(self,id,visited,left,right)
+       self.parent=parent
+
+   def __str__(self):
+       return str(self.id)
+
+
 class Tree:
    def __init__(self,node=None):
        self.node=node
@@ -29,7 +38,7 @@ class BinaryTree:
        self.node=node
 
    def add(self,nodeId):
-       print "added",nodeId
+       print("added",nodeId)
        self.addNode(self.node,nodeId)
   
    def addNode(self,nodePtr,nodeId):
